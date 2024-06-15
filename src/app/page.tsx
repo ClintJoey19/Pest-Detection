@@ -1,18 +1,11 @@
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+import Hero from "@/components/home/Hero";
+import ObjectDetection from "@/components/home/ObjectDetection";
 
-export default async function Home() {
-  const user = await currentUser();
-  console.log(user);
-
+export default function Home() {
   return (
-    <div>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
+    <div className="flex flex-col gap-2">
+      <Hero />
+      <ObjectDetection />
     </div>
   );
 }
