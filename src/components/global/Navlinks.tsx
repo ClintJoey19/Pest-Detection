@@ -7,13 +7,15 @@ const Navlinks = () => {
   const pathname = usePathname();
 
   return (
-    <ul className="flex items-center gap-4 max-md:hidden">
+    <ul className="flex items-center gap-6 max-md:hidden">
       {navLinks.map((link) => {
         const isActive = pathname === link.href;
         return (
           <li
             key={link.label}
-            className={`text-sm font-semibold ${isActive && "text-primary"}`}
+            className={`text-sm font-semibold hover:text-primary transition ${
+              isActive && "text-primary"
+            }`}
           >
             <Link href={link.href}>{link.label}</Link>
           </li>

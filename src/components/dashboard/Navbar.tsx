@@ -1,7 +1,5 @@
 import Image from "next/image";
-import React from "react";
-import Navlinks from "./Navlinks";
-import UserAuth from "../auth/UserAuth";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -9,11 +7,13 @@ const Navbar = () => {
       <div className="">
         <Image src={"/logo.svg"} alt="logo" height={100} width={100} />
       </div>
-      <div className="">
-        <Navlinks />
-      </div>
       <div className="h-full flex items-center gap-4">
-        <UserAuth />
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </section>
   );
