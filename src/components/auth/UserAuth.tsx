@@ -8,11 +8,13 @@ const UserAuth = async () => {
 
   return (
     <div className="flex items-center gap-4">
-      <div>
-        <Button asChild size="sm">
-          <Link href={`/dashboard`}>Dashboard</Link>
-        </Button>
-      </div>
+      {userId && (
+        <div>
+          <Button asChild size="sm">
+            <Link href={`/dashboard`}>Dashboard</Link>
+          </Button>
+        </div>
+      )}
       <div>
         <SignedOut>
           <SignInButton />

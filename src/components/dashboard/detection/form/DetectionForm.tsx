@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import axios from "axios";
 import FileUpload from "@/components/global/FileUpload";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +26,23 @@ const DetectionForm = () => {
 
   const handleImageChange = (url: string) => {
     setImageUrl(url);
+  };
+
+  const onDetect = async () => {
+    try {
+      setIsSubmitting(true);
+
+      const res = await axios.post("http://localhost:3000/api/roboflow", {
+        imageUrl,
+      });
+
+      const data = await res.data;
+      console.log(data);
+    } catch (error: any) {
+      console.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const onSubmit = async () => {
@@ -83,7 +101,7 @@ const DetectionForm = () => {
                 </div>
               )}
               <div className="text-end">
-                <Button disabled={imageUrl ? false : true}>
+                <Button disabled={imageUrl ? false : true} onClick={onDetect}>
                   {isSubmitting && (
                     <LoaderCircle className="w-4 h-4 mr-2 animate-spin" />
                   )}
@@ -110,16 +128,6 @@ const DetectionForm = () => {
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
             <h3 className="text-primary font-semibold">Output</h3>
-            {/* <Button
-              variant="outline"
-              size="sm"
-              asChild
-            >
-              <Link href={`/dashboard/ask-ai`}>
-                <Sparkles className="w-4 h-4 mr-2" />
-                Ask AI
-              </Link>
-            </Button> */}
           </div>
           <p className="text-sm">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste at
@@ -129,7 +137,7 @@ const DetectionForm = () => {
         <div className="flex flex-col gap-6 mt-6">
           <div className="relative h-[350px] rounded-lg overflow-hidden">
             {!outputImage ? (
-              <div className="w-full h-full flex flex-col items-center justify-center bg-slate-200">
+              <div className="w-full h-full flex flex-col gap-2 items-center justify-center bg-slate-200">
                 <ImageUp className="text-slate-700 w-6 h-6" />
                 <p className="text-sm text-slate-500 font-semibold">
                   No output image.
@@ -155,7 +163,7 @@ const DetectionForm = () => {
                 Ask AI
               </Link>
             </Button>
-            <Button size="sm">
+            <Button size="sm" onClick={onSubmit}>
               <ArrowDownToLine className="w-4 h-4 mr-2" />
               Save
             </Button>
