@@ -15,6 +15,7 @@ export const POST = async (req: Request) => {
     });
 
     const data = await res.data;
+    console.log(data);
 
     detectPlants(data, imageUrl);
 
