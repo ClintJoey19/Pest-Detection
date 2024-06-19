@@ -98,23 +98,7 @@ export const detectPlants = async (data: DataProps, imageUrl: string) => {
 
     // Save the image with bounding box
     const buffer = canvas.toBuffer("image/jpeg");
-
-    const dir = `output/${userId}`;
-    fs.mkdir(path.join("output", String(userId)), (err) => {
-      if (err) return console.error(err);
-      console.log("success");
-    });
-
-    fs.writeFileSync(`${dir}/output.jpg`, buffer);
-    console.log("Image with bounding box saved successfully!");
-
-    // // Save to uploadthing
-    // const response = await utapi.uploadFiles([
-    //   new File([`${dir}/output.jpg`], "output.jpg"),
-    // ]);
-
-    // fs.rmSync(dir, { recursive: true });
-    // console.log("deleted");
+    return `data:image/jpeg;base64,${buffer.toString("base64")}`;
   } catch (error: any) {
     console.error(error.message);
   }

@@ -17,9 +17,9 @@ export const POST = async (req: Request) => {
     const data = await res.data;
     console.log(data);
 
-    detectPlants(data, imageUrl);
+    const bufferedOutput = await detectPlants(data, imageUrl);
 
-    return Response.json(data);
+    return Response.json({ data, bufferedOutput });
   } catch (error) {
     console.error(error);
   }

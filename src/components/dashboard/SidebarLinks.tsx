@@ -17,13 +17,13 @@ const SidebarLinks = () => {
           <Link
             href={link.href}
             key={link.label}
-            className={`pl-4 py-2 flex items-center gap-2 rounded-md ${
+            className={`lg:pl-4 py-2 flex max-lg:justify-center items-center gap-2 rounded-md ${
               isActive
                 ? "bg-primary text-white hover:bg-primary hover:text-white"
                 : "hover:bg-violet-100"
             }`}
           >
-            {<link.icon />} {link.label}
+            {<link.icon />} <span className="max-lg:hidden">{link.label}</span>
           </Link>
         );
       })}

@@ -36,13 +36,21 @@ const DetectionForm = () => {
         imageUrl,
       });
 
-      const data = await res.data;
-      console.log(data);
+      const { data, bufferedOutput } = await res.data;
+      console.log(data, bufferedOutput);
+      setOutputImage(bufferedOutput);
     } catch (error: any) {
       console.error(error.message);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const onDownloadOutput = () => {
+    const link = document.createElement("a");
+    link.href = outputImage;
+    link.download = "output-image.jpg";
+    link.click();
   };
 
   const onSubmit = async () => {
@@ -83,11 +91,10 @@ const DetectionForm = () => {
             <div className="flex flex-col gap-6">
               {imageUrl ? (
                 <div className="relative h-[350px] rounded-lg overflow-hidden">
-                  <Image
+                  <img
                     src={imageUrl}
                     alt="image"
-                    fill
-                    className="object-contain"
+                    className="h-full object-contain mx-auto"
                   />
                 </div>
               ) : (
@@ -100,7 +107,7 @@ const DetectionForm = () => {
                   </div>
                 </div>
               )}
-              <div className="text-end">
+              <div className="h-full text-end">
                 <Button disabled={imageUrl ? false : true} onClick={onDetect}>
                   {isSubmitting && (
                     <LoaderCircle className="w-4 h-4 mr-2 animate-spin" />
@@ -145,7 +152,7 @@ const DetectionForm = () => {
               </div>
             ) : (
               <Image
-                src={`/hero.jpg`}
+                src={outputImage}
                 alt="output-image"
                 fill
                 className="object-contain"
@@ -163,9 +170,9 @@ const DetectionForm = () => {
                 Ask AI
               </Link>
             </Button>
-            <Button size="sm" onClick={onSubmit}>
+            <Button size="sm" onClick={onDownloadOutput}>
               <ArrowDownToLine className="w-4 h-4 mr-2" />
-              Save
+              Download
             </Button>
           </div>
         </div>

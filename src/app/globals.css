@@ -61,5 +61,9 @@
     .container {
       @apply w-full max-w-[1220px] mx-auto p-2 md:p-4;
     }
+
+    .header {
+      @apply text-2xl font-bold;
+    }
   }
 }

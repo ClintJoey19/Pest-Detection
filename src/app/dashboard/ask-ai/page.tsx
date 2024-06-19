@@ -6,7 +6,7 @@ import React from "react";
 const page = () => {
   return (
     <section className="h-[87vh] flex flex-col gap-4">
-      <h2 className="text-2xl font-bold flex items-center gap-2">
+      <h2 className="header flex items-center gap-2">
         Ask AI <Sparkles className="w-6 h-6 text-primary" />
       </h2>
       <div className="h-full w-full flex justify-center">

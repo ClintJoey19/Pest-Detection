@@ -1,7 +1,11 @@
 import React from "react";
 
 const page = () => {
-  return <div>Dashboard</div>;
+  return (
+    <section className="flex flex-col gap-4">
+      <h2 className="header">Dashboard</h2>
+    </section>
+  );
 };
 
 export default page;

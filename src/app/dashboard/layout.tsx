@@ -22,7 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${inter.className} bg-slate-100 pt-[8vh] relative`}>
           <Navbar />
-          <nav className="relative md:pl-[250px]">
+          <nav className="relative md:pl-[55px] lg:pl-[250px]">
             <Sidebar />
             <main className="p-4">{children}</main>
           </nav>
