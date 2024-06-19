@@ -67,7 +67,7 @@ const drawBoundingBox = (
 
     // Draw text background (consider adjusting based on text dimensions)
     context.fillStyle = colors[class_id];
-    context.fillRect(textX, topLeftY, width, textHeight + textPadding); // Draw blue background rectangle
+    context.fillRect(textX, topLeftY, width, textHeight + textPadding); // Draw background rectangle
 
     // Draw class and confidence text
     context.fillStyle = "white";
@@ -83,12 +83,13 @@ const drawBoundingBox = (
 
 export const detectPlants = async (data: DataProps, imageUrl: string) => {
   try {
-    const { userId } = await auth();
+    console.log(data);
 
     // Create canvas and load image
     const imgWidth = data.image.width;
     const imgHeight = data.image.height;
-    const canvas = createCanvas(imgHeight, imgHeight);
+    const canvas = createCanvas(imgWidth, imgHeight);
+
     const context = canvas.getContext("2d");
     const imageData = await loadImage(imageUrl);
     context.drawImage(imageData, 0, 0);
@@ -98,6 +99,7 @@ export const detectPlants = async (data: DataProps, imageUrl: string) => {
 
     // Save the image with bounding box
     const buffer = canvas.toBuffer("image/jpeg");
+    fs.writeFileSync("output.jpg", buffer);
     return `data:image/jpeg;base64,${buffer.toString("base64")}`;
   } catch (error: any) {
     console.error(error.message);

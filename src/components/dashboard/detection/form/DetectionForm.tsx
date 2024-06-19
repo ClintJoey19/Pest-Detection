@@ -82,8 +82,9 @@ const DetectionForm = () => {
             )}
           </div>
           <p className="text-sm">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste at
-            accusamus velit culpa enim provident!
+            This current model is able to identify the following pest/insects:
+            Whitefly, Aphids, Pumpkin-Beetle, Fruitfly, Serpentine-leafminer.
+            Try uploading one.
           </p>
         </div>
         <div className="mt-6">
@@ -91,10 +92,11 @@ const DetectionForm = () => {
             <div className="flex flex-col gap-6">
               {imageUrl ? (
                 <div className="relative h-[350px] rounded-lg overflow-hidden">
-                  <img
+                  <Image
                     src={imageUrl}
-                    alt="image"
+                    alt="input-image"
                     className="h-full object-contain mx-auto"
+                    fill
                   />
                 </div>
               ) : (

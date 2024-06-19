@@ -7,15 +7,14 @@ export const POST = async (req: Request) => {
 
     const res = await axios({
       method: "POST",
-      url: "https://detect.roboflow.com/bad-forage-v2/1",
+      url: "https://detect.roboflow.com/pests-in-cucumber-plants-jegly/2",
       params: {
-        api_key: "oQlte7b2JXcLhVMtf196",
+        api_key: "M42WszbMjuYmG5DpSsHL",
         image: imageUrl,
       },
     });
 
     const data = await res.data;
-    console.log(data);
 
     const bufferedOutput = await detectPlants(data, imageUrl);
 
