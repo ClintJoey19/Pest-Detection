@@ -1,5 +1,15 @@
 import { Images, LayoutDashboard, ScanLine, Sparkles } from "lucide-react";
 
+export const colors = [
+  "blue",
+  "green",
+  "indigo",
+  "red",
+  "darkorange",
+  "magenta",
+  "brown",
+];
+
 export const navLinks = [
   {
     label: "Home",

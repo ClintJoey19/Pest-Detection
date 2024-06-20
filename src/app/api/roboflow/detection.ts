@@ -1,8 +1,5 @@
+import { colors } from "@/constants";
 import { CanvasRenderingContext2D, createCanvas, loadImage } from "canvas";
-import fs from "fs";
-import path from "path";
-import { utapi } from "@/lib/api-provider";
-import { auth } from "@clerk/nextjs/server";
 
 type Image = {
   width: number;
@@ -20,7 +17,7 @@ type Prediction = {
   detection_id: string;
 };
 
-interface DataProps {
+export interface DataProps {
   time: number;
   image: Image;
   predictions: Prediction[];
@@ -32,15 +29,6 @@ const drawBoundingBox = (
   data: DataProps,
   context: CanvasRenderingContext2D
 ) => {
-  const colors = [
-    "blue",
-    "green",
-    "indigo",
-    "red",
-    "darkorange",
-    "magenta",
-    "brown",
-  ];
   const { predictions } = data;
   predictions.forEach((prediction) => {
     const {
@@ -99,8 +87,9 @@ export const detectPlants = async (data: DataProps, imageUrl: string) => {
 
     // Save the image with bounding box
     const buffer = canvas.toBuffer("image/jpeg");
-    fs.writeFileSync("output.jpg", buffer);
-    return `data:image/jpeg;base64,${buffer.toString("base64")}`;
+    const output = `data:image/jpeg;base64,${buffer.toString("base64")}`
+
+    return output;
   } catch (error: any) {
     console.error(error.message);
   }
