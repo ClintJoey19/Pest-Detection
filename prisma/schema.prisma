@@ -17,7 +17,7 @@ model Output {
   id          String       @id @default(cuid())
   userId      String       @map("user_id")
   image       String
-  time        Int
+  time        Float
   predictions Prediction[]
   createdAt   DateTime     @default(now()) @map("created_at")
   updatedAt   DateTime     @updatedAt @map("updated_at")
@@ -25,9 +25,9 @@ model Output {
 
 model Prediction {
   id         String  @id @default(cuid())
-  confidence Int
+  confidence Float
   class      String
   classId    Int     @map("class_id")
-  output     Output? @relation(fields: [outputId], references: [id])
+  output     Output? @relation(fields: [outputId], references: [id], onDelete: Cascade)
   outputId   String?
 }

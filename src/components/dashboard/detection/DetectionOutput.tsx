@@ -1,27 +1,73 @@
+"use client";
 import { DataProps } from "@/app/api/roboflow/detection";
 import DetectionSkeleton from "@/components/skeletons/DetectionSkeleton";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { createOutput } from "@/lib/actions/output.action";
 import { formatInference } from "@/lib/utils";
 import { ArrowDownToLine, CloudUpload, ImageUp, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { title } from "process";
+import React, { useState } from "react";
 
 interface DetectionOutputProps {
   outputData: DataProps | null;
   outputImage: string;
   isDetecting: boolean;
-  onDownloadOutput: () => void;
-  onSubmit: () => void;
 }
 
 const DetectionOutput = ({
   outputData,
   outputImage,
   isDetecting,
-  onDownloadOutput,
-  onSubmit,
 }: DetectionOutputProps) => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const onAskAi = () => {
+    router.push(`/dashboard/ask-ai`);
+  };
+
+  const onDownloadOutput = () => {
+    const link = document.createElement("a");
+    link.href = outputImage;
+    link.download = "output-image.jpg";
+    link.click();
+  };
+
+  const onSubmit = async () => {
+    try {
+      setIsSubmitting(true);
+
+      if (!outputData) return console.error("No output found");
+
+      const { time, predictions } = outputData;
+      const extracted = predictions.map((prediction) => ({
+        class: prediction.class,
+        classId: prediction.class_id,
+        confidence: prediction.confidence,
+      }));
+
+      await createOutput(outputImage, time, extracted);
+      toast({
+        title: "Output saved to cloud",
+        variant: "success",
+      });
+    } catch (error: any) {
+      console.error(error.message);
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2 border bg-white p-4 rounded-xl">
       <div className="flex flex-col gap-2">
@@ -72,18 +118,31 @@ const DetectionOutput = ({
             !outputImage && !isDetecting && "hidden"
           }`}
         >
-          <Button variant="outline" size="sm" asChild>
-            <Link href={`/dashboard/ask-ai`}>
-              <Sparkles className="w-4 h-4 mr-2" />
-              Ask AI
-            </Link>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={isDetecting}
+            onClick={onAskAi}
+          >
+            <Sparkles className="w-4 h-4 mr-2" />
+            Ask AI
           </Button>
-          <Button size="sm" variant="outline" onClick={onSubmit}>
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={
+              isDetecting ||
+              isSubmitting ||
+              outputData?.predictions.length === 0
+            }
+            onClick={onSubmit}
+          >
             <CloudUpload className="w-4 h-4 mr-2" />
             Add to Cloud
           </Button>
           <Button
             size="sm"
+            disabled={isDetecting}
             onClick={onDownloadOutput}
             className="md:col-span-2"
           >

@@ -7,10 +7,10 @@ import { ImageUp, LoaderCircle, Upload, X } from "lucide-react";
 import Image from "next/image";
 import { DataProps } from "@/app/api/roboflow/detection";
 import DetectionOutput from "../DetectionOutput";
+import { DOMAIN } from "@/lib/utils";
 
 const DetectionForm = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isDetecting, setIsDetecting] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [outputData, setOutputData] = useState<DataProps | null>(null);
@@ -26,10 +26,9 @@ const DetectionForm = () => {
 
   const onDetect = async () => {
     try {
-      setIsSubmitting(true);
       setIsDetecting(true);
 
-      const res = await axios.post("http://localhost:3000/api/roboflow", {
+      const res = await axios.post(`${DOMAIN}/api/roboflow`, {
         imageUrl,
       });
 
@@ -39,25 +38,7 @@ const DetectionForm = () => {
     } catch (error: any) {
       console.error(error.message);
     } finally {
-      setIsSubmitting(false);
       setIsDetecting(false);
-    }
-  };
-
-  const onDownloadOutput = () => {
-    const link = document.createElement("a");
-    link.href = outputImage;
-    link.download = "output-image.jpg";
-    link.click();
-  };
-
-  const onSubmit = async () => {
-    try {
-      console.log();
-    } catch (error: any) {
-      console.error(error.message);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -80,7 +61,7 @@ const DetectionForm = () => {
                 </Button>
               )}
             </div>
-            <p className="text-sm">
+            <p className="text-sm text-justify">
               This current model is able to identify the following pest/insects:
               Whitefly, Aphids, Pumpkin-Beetle, Fruitfly, Serpentine-leafminer.
               Try uploading{" "}
@@ -110,8 +91,11 @@ const DetectionForm = () => {
                   </div>
                 )}
                 <div className="h-full text-end">
-                  <Button disabled={imageUrl ? false : true} onClick={onDetect}>
-                    {isSubmitting && (
+                  <Button
+                    disabled={!imageUrl || isDetecting}
+                    onClick={onDetect}
+                  >
+                    {isDetecting && (
                       <LoaderCircle className="w-4 h-4 mr-2 animate-spin" />
                     )}
                     Run Detection
@@ -138,8 +122,6 @@ const DetectionForm = () => {
         outputData={outputData}
         outputImage={outputImage}
         isDetecting={isDetecting}
-        onDownloadOutput={onDownloadOutput}
-        onSubmit={onSubmit}
       />
     </div>
   );

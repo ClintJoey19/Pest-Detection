@@ -6,7 +6,7 @@ type Image = {
   height: number;
 };
 
-type Prediction = {
+export type Prediction = {
   x: number;
   y: number;
   width: number;
@@ -87,7 +87,7 @@ export const detectPlants = async (data: DataProps, imageUrl: string) => {
 
     // Save the image with bounding box
     const buffer = canvas.toBuffer("image/jpeg");
-    const output = `data:image/jpeg;base64,${buffer.toString("base64")}`
+    const output = `data:image/jpeg;base64,${buffer.toString("base64")}`;
 
     return output;
   } catch (error: any) {
