@@ -41,10 +41,9 @@ const MobileNavbar = () => {
                 link.href === pathname;
 
               return (
-                <SheetClose asChild>
+                <SheetClose key={link.label} asChild>
                   <Link
                     href={link.href}
-                    key={link.label}
                     className={`pl-4 py-2 flex items-center gap-2 rounded-md ${
                       isActive
                         ? "bg-primary text-white hover:bg-primary hover:text-white"
