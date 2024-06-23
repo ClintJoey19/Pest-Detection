@@ -44,9 +44,12 @@ const DetectionOutput = ({
     try {
       setIsSubmitting(true);
 
+      if (!userId) return console.error("User unauthorized");
+
       if (!outputData) return console.error("No output found");
 
       const { time, predictions } = outputData;
+
       const extracted = predictions.map((prediction) => ({
         userId,
         class: prediction.class,

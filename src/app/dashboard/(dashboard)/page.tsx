@@ -72,7 +72,7 @@ const page = async () => {
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="text-lg font-semibold">Pest Analytics</h3>
-          <div className="w-full flex gap-4">
+          <div className="w-full flex max-md:flex-col gap-4">
             <div className="w-full bg-white border border-slate-300 p-4 rounded-xl">
               <LineChart />
             </div>
