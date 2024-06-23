@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import prisma from "../prisma";
 import { auth } from "@clerk/nextjs/server";
 
-export const getOutputs = async () => {
+export const getOutputs = async (limit?: number) => {
   try {
     const { userId } = auth();
 
@@ -19,6 +19,7 @@ export const getOutputs = async () => {
       orderBy: {
         createdAt: "desc",
       },
+      take: limit,
     });
 
     return res;
@@ -89,6 +90,24 @@ export const deleteOutput = async (id: string) => {
     });
 
     revalidatePath("/dashboard/images");
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const getOutputsCount = async () => {
+  try {
+    const { userId } = auth();
+
+    if (!userId) throw new Error("User unauthorized");
+
+    const count = await prisma.output.count({
+      where: {
+        userId,
+      },
+    });
+
+    return count;
   } catch (error: any) {
     console.error(error.message);
   }

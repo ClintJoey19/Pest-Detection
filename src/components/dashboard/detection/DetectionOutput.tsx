@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { createOutput } from "@/lib/actions/output.action";
 import { formatInference } from "@/lib/utils";
+import { useAuth } from "@clerk/nextjs";
 import { ArrowDownToLine, CloudUpload, ImageUp, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,6 +27,7 @@ const DetectionOutput = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { userId } = useAuth();
 
   const onAskAi = () => {
     router.push(`/dashboard/ask-ai`);
@@ -46,6 +48,7 @@ const DetectionOutput = ({
 
       const { time, predictions } = outputData;
       const extracted = predictions.map((prediction) => ({
+        userId,
         class: prediction.class,
         classId: prediction.class_id,
         confidence: prediction.confidence,

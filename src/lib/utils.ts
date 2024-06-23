@@ -11,3 +11,5 @@ export function cn(...inputs: ClassValue[]) {
 export const formatInference = (time: number) => {
   return `${(time * 100).toFixed(2)} ms`;
 };
+
+export const getDaysOfMonth = () => {};

@@ -25,9 +25,12 @@ model Output {
 
 model Prediction {
   id         String  @id @default(cuid())
+  userId     String @map("user_id")
   confidence Float
   class      String
   classId    Int     @map("class_id")
   output     Output? @relation(fields: [outputId], references: [id], onDelete: Cascade)
   outputId   String?
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
 }

@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import Image from "next/image";
-import SidebarLinks from "./SidebarLinks";
 import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
