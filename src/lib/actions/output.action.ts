@@ -46,6 +46,7 @@ export const getOutput = async (id: string) => {
 };
 
 type Extract = {
+  userId: string;
   class: string;
   classId: number;
   confidence: number;
