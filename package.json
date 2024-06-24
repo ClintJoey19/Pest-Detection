@@ -24,6 +24,7 @@
     "@uploadthing/react": "^6.6.0",
     "axios": "^1.7.2",
     "canvas": "^2.11.2",
+    "canvas-text-wrapper": "^0.10.2",
     "chart.js": "^4.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

@@ -1,5 +1,10 @@
 import { colors } from "@/constants";
-import { CanvasRenderingContext2D, createCanvas, loadImage } from "canvas";
+import {
+  CanvasRenderingContext2D,
+  createCanvas,
+  loadImage,
+  registerFont,
+} from "canvas";
 
 type Image = {
   width: number;
@@ -60,7 +65,7 @@ const drawBoundingBox = (
     // Draw class and confidence text
     context.fillStyle = "white";
     const fontSize = (Math.sqrt(imgWidth * imgHeight) / 300) * 11;
-    context.font = `${fontSize}px Verdana`; // Adjust font size and style as needed
+    context.font = `${fontSize}px Arial`; // Adjust font size and style as needed
     context.fillText(
       `${label} ${(confidence * 100).toFixed(1)}%`,
       textX,
@@ -71,9 +76,8 @@ const drawBoundingBox = (
 
 export const detectPlants = async (data: DataProps, imageUrl: string) => {
   try {
-    console.log(data);
-
     // Create canvas and load image
+    registerFont("./fonts/ARIAL.TTF", { family: "Arial" });
     const imgWidth = data.image.width;
     const imgHeight = data.image.height;
     const canvas = createCanvas(imgWidth, imgHeight);
