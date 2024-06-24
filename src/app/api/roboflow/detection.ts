@@ -65,7 +65,7 @@ const drawBoundingBox = (
     // Draw class and confidence text
     context.fillStyle = "white";
     const fontSize = (Math.sqrt(imgWidth * imgHeight) / 300) * 11;
-    context.font = `${fontSize}px Arial`; // Adjust font size and style as needed
+    context.font = `${fontSize}px Inter`; // Adjust font size and style as needed
     context.fillText(
       `${label} ${(confidence * 100).toFixed(1)}%`,
       textX,
@@ -77,7 +77,7 @@ const drawBoundingBox = (
 export const detectPlants = async (data: DataProps, imageUrl: string) => {
   try {
     // Create canvas and load image
-    registerFont("./fonts/ARIAL.TTF", { family: "Arial" });
+    registerFont("./fonts/Inter-Regular.ttf", { family: "Inter" });
     const imgWidth = data.image.width;
     const imgHeight = data.image.height;
     const canvas = createCanvas(imgWidth, imgHeight);
