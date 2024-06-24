@@ -77,7 +77,7 @@ const drawBoundingBox = (
 export const detectPlants = async (data: DataProps, imageUrl: string) => {
   try {
     // Create canvas and load image
-    registerFont("./fonts/Inter-Regular.ttf", { family: "Inter" });
+    registerFont("./public/fonts/Inter-Regular.ttf", { family: "Inter" });
     const imgWidth = data.image.width;
     const imgHeight = data.image.height;
     const canvas = createCanvas(imgWidth, imgHeight);
