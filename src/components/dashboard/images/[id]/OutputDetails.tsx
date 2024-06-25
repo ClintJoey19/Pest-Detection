@@ -5,7 +5,7 @@ import { deleteOutput } from "@/lib/actions/output.action";
 import { formatInference } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface OutputDetailsProps {
   id: string;
@@ -21,8 +21,26 @@ interface OutputDetailsProps {
 
 const OutputDetails = ({ id, time, predictions }: OutputDetailsProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [detections, setDetections] = useState<Record<string, number>>({});
   const router = useRouter();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const pestCount: Record<string, number> = {};
+
+    if (predictions) {
+      for (const detection of predictions) {
+        const pest = detection.class;
+        if (pestCount[pest]) {
+          pestCount[pest]++;
+        } else {
+          pestCount[pest] = 1;
+        }
+      }
+    }
+
+    setDetections(pestCount);
+  }, [predictions]);
 
   const handleDelete = async () => {
     try {
@@ -58,6 +76,17 @@ const OutputDetails = ({ id, time, predictions }: OutputDetailsProps) => {
           <span className="text-primary font-semibold">
             {predictions.length} predicted
           </span>
+        </div>
+        <div className="mt-2 flex items-center gap-2">
+          {predictions &&
+            Object.entries(detections).map(([key, value]) => (
+              <p
+                key={key}
+                className="text-sm bg-primary text-white px-2 rounded-full"
+              >
+                {key} {value}
+              </p>
+            ))}
         </div>
       </div>
       <Button

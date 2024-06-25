@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { DataProps } from "@/app/api/roboflow/detection";
 import DetectionSkeleton from "@/components/skeletons/DetectionSkeleton";
 import { Button } from "@/components/ui/button";
@@ -8,10 +9,7 @@ import { formatInference } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
 import { ArrowDownToLine, CloudUpload, ImageUp, Sparkles } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { title } from "process";
-import React, { useState } from "react";
 
 interface DetectionOutputProps {
   outputData: DataProps | null;
@@ -25,9 +23,27 @@ const DetectionOutput = ({
   isDetecting,
 }: DetectionOutputProps) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [detections, setDetections] = useState<Record<string, number>>({});
   const router = useRouter();
   const { toast } = useToast();
   const { userId } = useAuth();
+
+  useEffect(() => {
+    const pestCount: Record<string, number> = {};
+
+    if (outputData) {
+      for (const detection of outputData?.predictions) {
+        const pest = detection.class;
+        if (pestCount[pest]) {
+          pestCount[pest]++;
+        } else {
+          pestCount[pest] = 1;
+        }
+      }
+    }
+
+    setDetections(pestCount);
+  }, [outputData]);
 
   const onAskAi = () => {
     router.push(`/dashboard/ask-ai`);
@@ -95,6 +111,18 @@ const DetectionOutput = ({
               </span>
             </p>
           )}
+          <div className="mt-2 flex items-center gap-2">
+            {outputData?.predictions &&
+              !isDetecting &&
+              Object.entries(detections).map(([key, value]) => (
+                <p
+                  key={key}
+                  className="text-sm bg-primary text-white px-2 rounded-full"
+                >
+                  {key} {value}
+                </p>
+              ))}
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-6 mt-6">
