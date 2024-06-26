@@ -1,4 +1,5 @@
 import LineChart from "@/components/charts/LineChart";
+import PestAnalytics from "@/components/dashboard/(dashboard)/PestAnalytics";
 import ImageLayout from "@/components/dashboard/images/ImageLayout";
 import { Button } from "@/components/ui/button";
 import { getOutputs, getOutputsCount } from "@/lib/actions/output.action";
@@ -70,21 +71,7 @@ const page = async () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-4">
-          <h3 className="text-lg font-semibold">Pest Analytics</h3>
-          <div className="w-full flex max-md:flex-col gap-4">
-            <div className="w-full bg-white border border-slate-300 p-4 rounded-xl">
-              <LineChart />
-            </div>
-            <div className="bg-white border border-slate-300 p-4 rounded-xl">
-              <h3 className="mb-4">Controls</h3>
-              <div className="flex flex-col gap-4">
-                <p>Month</p>
-                <p>Year</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PestAnalytics />
       </div>
     </section>
   );

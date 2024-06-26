@@ -10,6 +10,7 @@ import { useAuth } from "@clerk/nextjs";
 import { ArrowDownToLine, CloudUpload, ImageUp, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import PestBadge from "@/components/global/PestBadge";
 
 interface DetectionOutputProps {
   outputData: DataProps | null;
@@ -52,7 +53,7 @@ const DetectionOutput = ({
   const onDownloadOutput = () => {
     const link = document.createElement("a");
     link.href = outputImage;
-    link.download = "output-image.jpg";
+    link.download = "output-image.png";
     link.click();
   };
 
@@ -114,13 +115,8 @@ const DetectionOutput = ({
           <div className="mt-2 flex items-center gap-2">
             {outputData?.predictions &&
               !isDetecting &&
-              Object.entries(detections).map(([key, value]) => (
-                <p
-                  key={key}
-                  className="text-sm bg-primary text-white px-2 rounded-full"
-                >
-                  {key} {value}
-                </p>
+              Object.entries(detections).map(([pest, value]) => (
+                <PestBadge key={pest} pest={pest} value={value} />
               ))}
           </div>
         </div>

@@ -51,26 +51,26 @@ const drawBoundingBox = (
     context.lineWidth = (Math.sqrt(imgWidth * imgHeight) / 250) * 2;
     context.strokeRect(topLeftX, topLeftY, width, height);
 
-    // const textHeight = (Math.sqrt(imgWidth * imgHeight) / 200) * 2;
+    const textHeight = (Math.sqrt(imgWidth * imgHeight) / 200) * 2;
 
-    // // Calculate text positioning
-    // const textPadding = (Math.sqrt(imgWidth * imgHeight) / 300) * 10; // Adjust padding as needed
-    // const textX = topLeftX; // Position text at top-left with padding
-    // const textY = topLeftY + textPadding; // Position text below top edge with padding
+    // Calculate text positioning
+    const textPadding = (Math.sqrt(imgWidth * imgHeight) / 300) * 10; // Adjust padding as needed
+    const textX = topLeftX; // Position text at top-left with padding
+    const textY = topLeftY + textPadding; // Position text below top edge with padding
 
-    // // Draw text background (consider adjusting based on text dimensions)
-    // context.fillStyle = colors[class_id];
-    // context.fillRect(textX, topLeftY, width, textHeight + textPadding); // Draw background rectangle
+    // Draw text background (consider adjusting based on text dimensions)
+    context.fillStyle = colors[class_id];
+    context.fillRect(textX, topLeftY, width, textHeight + textPadding); // Draw background rectangle
 
-    // // Draw class and confidence text
-    // context.fillStyle = "white";
-    // const fontSize = (Math.sqrt(imgWidth * imgHeight) / 300) * 11;
-    // context.font = `${fontSize}px Arial`; // Adjust font size and style as needed
-    // context.fillText(
-    //   `${label} ${(confidence * 100).toFixed(1)}%`,
-    //   textX,
-    //   textY
-    // );
+    // Draw class and confidence text
+    context.fillStyle = "white";
+    const fontSize = (Math.sqrt(imgWidth * imgHeight) / 300) * 11;
+    context.font = `${fontSize}px Arial`; // Adjust font size and style as needed
+    context.fillText(
+      `${label} ${(confidence * 100).toFixed(1)}%`,
+      textX,
+      textY
+    );
   });
 };
 
@@ -90,7 +90,7 @@ export const detectPlants = async (data: DataProps, imageUrl: string) => {
 
     // Save the image with bounding box
     const buffer = canvas.toBuffer("image/jpeg");
-    const output = `data:image/jpeg;base64,${buffer.toString("base64")}`;
+    const output = `data:image/png;base64,${buffer.toString("base64")}`;
 
     return output;
   } catch (error: any) {

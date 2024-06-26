@@ -1,4 +1,5 @@
 "use client";
+import PestBadge from "@/components/global/PestBadge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { deleteOutput } from "@/lib/actions/output.action";
@@ -79,13 +80,8 @@ const OutputDetails = ({ id, time, predictions }: OutputDetailsProps) => {
         </div>
         <div className="mt-2 flex items-center gap-2">
           {predictions &&
-            Object.entries(detections).map(([key, value]) => (
-              <p
-                key={key}
-                className="text-sm bg-primary text-white px-2 rounded-full"
-              >
-                {key} {value}
-              </p>
+            Object.entries(detections).map(([pest, value]) => (
+              <PestBadge key={pest} pest={pest} value={value} />
             ))}
         </div>
       </div>
