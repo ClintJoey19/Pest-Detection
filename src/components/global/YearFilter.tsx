@@ -68,7 +68,9 @@ const YearFilter = () => {
       <SelectContent>
         <SelectGroup>
           {months.map(({ value, label }) => (
-            <SelectItem value={value}>{label}</SelectItem>
+            <SelectItem key={label} value={value}>
+              {label}
+            </SelectItem>
           ))}
         </SelectGroup>
       </SelectContent>
