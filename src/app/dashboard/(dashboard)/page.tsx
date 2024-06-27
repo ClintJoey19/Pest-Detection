@@ -1,4 +1,3 @@
-import LineChart from "@/components/charts/LineChart";
 import PestAnalytics from "@/components/dashboard/(dashboard)/PestAnalytics";
 import ImageLayout from "@/components/dashboard/images/ImageLayout";
 import { Button } from "@/components/ui/button";
@@ -6,7 +5,6 @@ import { getOutputs, getOutputsCount } from "@/lib/actions/output.action";
 import { getPredictionsCount } from "@/lib/actions/prediction.action";
 import { Bug, Image } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 const page = async () => {
   const outputCounts = await getOutputsCount();

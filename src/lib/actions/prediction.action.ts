@@ -34,7 +34,7 @@ export const getPrediction = async (id: string) => {
   }
 };
 
-export const getPredictionsCount = async () => {
+export const getPredictionsCount = async (classId?: number) => {
   try {
     const { userId } = auth();
 
@@ -43,10 +43,32 @@ export const getPredictionsCount = async () => {
     const count = await prisma.prediction.count({
       where: {
         userId,
+        classId,
       },
     });
 
     return count;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const getPredictionsCombinedCount = async (date: Date) => {
+  try {
+    // const pestCounts = await prisma.prediction.groupBy({
+    //   by: ['classId'],
+    //   where: {
+    //     createdAt: {
+    //       month: date.getMonth() + 1,
+    //       year: date.getFullYear(),
+    //     },
+    //   },
+    //   aggregate: {
+    //     field: 'id',  // You can count any field here
+    //     function: 'count',
+    //   },
+    // })
+    // return pestCounts
   } catch (error: any) {
     console.error(error.message);
   }

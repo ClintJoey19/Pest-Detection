@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { title } from "process";
 
 ChartJS.register(
   CategoryScale,
@@ -27,10 +28,6 @@ const options = {
   plugins: {
     legend: {
       position: "bottom" as const,
-    },
-    title: {
-      display: true,
-      text: "Pest Records",
     },
   },
 };
