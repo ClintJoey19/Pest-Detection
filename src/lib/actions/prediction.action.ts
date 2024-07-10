@@ -55,20 +55,20 @@ export const getPredictionsCount = async (classId?: number) => {
 
 export const getPredictionsCombinedCount = async (date: Date) => {
   try {
-    // const pestCounts = await prisma.prediction.groupBy({
-    //   by: ['classId'],
-    //   where: {
-    //     createdAt: {
-    //       month: date.getMonth() + 1,
-    //       year: date.getFullYear(),
-    //     },
-    //   },
-    //   aggregate: {
-    //     field: 'id',  // You can count any field here
-    //     function: 'count',
-    //   },
-    // })
-    // return pestCounts
+    const pestCounts = await prisma.prediction.groupBy({
+      by: ["classId"],
+      where: {
+        createdAt: {
+          month: date.getMonth(),
+          year: date.getFullYear(),
+        },
+      },
+      aggregate: {
+        field: "id", // You can count any field here
+        function: "count",
+      },
+    });
+    return pestCounts;
   } catch (error: any) {
     console.error(error.message);
   }

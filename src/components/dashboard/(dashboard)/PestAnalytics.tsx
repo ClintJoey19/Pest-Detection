@@ -11,7 +11,7 @@ const PestAnalytics = async () => {
       </div>
       <div className="w-full flex max-md:flex-col gap-4">
         <div className="w-full flex flex-col gap-4 items-center bg-white border border-slate-300 p-4 rounded-xl">
-          <h3 className="font-semibold">{formatDate(new Date(), true)}</h3>
+          <h3 className="font-semibold">{formatDate(new Date())}</h3>
           <LineChart />
         </div>
       </div>

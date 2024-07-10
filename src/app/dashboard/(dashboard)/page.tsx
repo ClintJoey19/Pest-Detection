@@ -1,43 +1,37 @@
+import CardsAnalytics from "@/components/dashboard/(dashboard)/CardsAnalytics";
 import PestAnalytics from "@/components/dashboard/(dashboard)/PestAnalytics";
+import RecentImages from "@/components/dashboard/(dashboard)/RecentImages";
 import ImageLayout from "@/components/dashboard/images/ImageLayout";
+import CardAnalyticsSkeleton from "@/components/skeletons/CardAnalyticsSkeleton";
+import ImagesSkeleton from "@/components/skeletons/ImagesSkeleton";
+import RecentImagesSkeleton from "@/components/skeletons/RecentImagesSkeleton";
 import { Button } from "@/components/ui/button";
 import { getOutputs, getOutputsCount } from "@/lib/actions/output.action";
 import { getPredictionsCount } from "@/lib/actions/prediction.action";
 import { Bug, Image } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
-const page = async () => {
-  const outputCounts = await getOutputsCount();
-  const predictionCounts = await getPredictionsCount();
-  const outputs = await getOutputs(4);
-
+const page = () => {
   return (
     <section className="flex flex-col gap-4">
       <h2 className="header">Dashboard</h2>
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white flex justify-between gap-4 border border-slate-300 p-4 rounded-xl">
-            <div className="w-14 h-14 bg-purple-200 flex justify-center items-center rounded-full">
-              <Image className="h-8 w-8 text-primary" />
-            </div>
-            <div className="flex flex-col items-end gap-2">
-              <p className="font-semibold">Output Images</p>
-              <span className="text-2xl text-primary font-semibold">
-                {outputCounts || 0}
-              </span>
-            </div>
-          </div>
-          <div className="bg-white flex justify-between border border-slate-300 p-4 rounded-xl">
-            <div className="w-14 h-14 bg-purple-200 flex justify-center items-center rounded-full">
-              <Bug className="h-8 w-8 text-primary" />
-            </div>
-            <div className="flex flex-col items-end gap-2">
-              <p className="font-semibold">Pest Detected</p>
-              <span className="text-2xl text-primary font-semibold">
-                {predictionCounts || 0}
-              </span>
-            </div>
-          </div>
+          <Suspense fallback={<CardAnalyticsSkeleton />}>
+            <CardsAnalytics
+              label="Output Images"
+              iconLabel={<Image className="h-8 w-8 text-primary" />}
+              getValue={getOutputsCount}
+            />
+          </Suspense>
+          <Suspense fallback={<CardAnalyticsSkeleton />}>
+            <CardsAnalytics
+              label="Pest Detected"
+              iconLabel={<Bug className="h-8 w-8 text-primary" />}
+              getValue={getPredictionsCount}
+            />
+          </Suspense>
         </div>
         <div className="">
           <div className="flex flex-col gap-4">
@@ -50,23 +44,9 @@ const page = async () => {
                 More
               </Link>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-              {outputs?.map((output) => (
-                <ImageLayout
-                  key={output.id}
-                  id={output.id}
-                  image={output.image}
-                />
-              ))}
-              <div className="max-md:hidden h-[250px] bg-white flex justify-center items-center border border-slate-300 rounded-xl hover:shadow-lg">
-                <div>
-                  <p className="font-semibold mb-2">View all</p>
-                  <Button size="sm" asChild>
-                    <Link href="/dashboard/images">More</Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <Suspense fallback={<RecentImagesSkeleton length={4} />}>
+              <RecentImages />
+            </Suspense>
           </div>
         </div>
         <PestAnalytics />

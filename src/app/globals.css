@@ -67,3 +67,18 @@
     }
   }
 }
+
+.bg-gradient {
+  background-color: #e699ff;
+  background-image: radial-gradient(
+      at 8% 95%,
+      hsla(273, 98%, 64%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 50% 64%, hsla(301, 72%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 11%, hsla(212, 61%, 68%, 1) 0px, transparent 50%),
+    radial-gradient(at 64% 84%, hsla(29, 82%, 69%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 13%, hsla(216, 75%, 79%, 1) 0px, transparent 50%),
+    radial-gradient(at 90% 72%, hsla(54, 84%, 72%, 1) 0px, transparent 50%),
+    radial-gradient(at 93% 53%, hsla(139, 61%, 66%, 1) 0px, transparent 50%);
+}

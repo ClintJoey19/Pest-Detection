@@ -1,8 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-// export const DOMAIN = "http://localhost:3000";
-export const DOMAIN = "https://pest-detection.vercel.app";
+export const DOMAIN = "http://localhost:3000";
+// export const DOMAIN = "https://pest-detection.vercel.app";
 
 export const months = [
   {
@@ -63,12 +63,12 @@ export const formatInference = (time: number) => {
   return `${(time * 100).toFixed(2)} ms`;
 };
 
-export const formatDate = (date: Date, hasNoDay?: boolean) => {
+export const formatDate = (date: Date, hasDay?: boolean) => {
   const month = months[date.getMonth()].label;
   const day = date.getDate();
   const year = date.getFullYear();
 
-  return hasNoDay ? `${month} ${year}` : `${month} ${day}, ${year}`;
+  return !hasDay ? `${month} ${year}` : `${month} ${day}, ${year}`;
 };
 
 export const getDaysOfMonth = () => {};
