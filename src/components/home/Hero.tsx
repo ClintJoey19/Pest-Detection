@@ -5,14 +5,14 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="container md:h-[92vh] relative md:mb-[340px]">
+    <section className="container flex flex-col gap-4">
       <div className="flex items-center justify-center mt-4">
         <div className="max-w-[600px] max-md:w-full flex flex-col gap-2">
           <h1 className="text-4xl md:text-6xl text-center font-bold">
             Identify <span className="text-primary">Plant Pests</span> Quickly &
             Easily
           </h1>
-          <p className="mt-4 text-center">
+          <p className="text-sm md:text-base mt-4 text-center">
             Save your crops and peace of mind with our AI-powered pest
             identification tool.
           </p>
@@ -29,12 +29,12 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="max-md:hidden absolute w-full aspect-video -bottom-[50%]">
+      <div className="w-full aspect-video relative">
         <Image
           src="/hero-demo.jpeg"
           alt="hero-img"
           fill
-          className="border-[15px] border-primary rounded-xl object-scale-down"
+          className="border-[8px] md:border-[12px] border-primary rounded-xl object-scale-down"
         />
       </div>
     </section>

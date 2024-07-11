@@ -1,10 +1,10 @@
 import { samplePrompts } from "@/constants";
-import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 import SamplePrompt from "./SamplePrompt";
+import { useUser } from "@clerk/nextjs";
 
-const NoChats = async () => {
-  const user = await currentUser();
+const NoChats = () => {
+  const { user } = useUser();
 
   return (
     <div className="w-full h-full flex flex-col gap-10">
