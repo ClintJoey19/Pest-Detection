@@ -18,7 +18,7 @@ const page = ({ searchParams }: searchParams) => {
     <section className="h-[87vh] flex flex-col gap-4">
       <h2 className="header flex items-center gap-2">
         Ask AI <Sparkles className="w-6 h-6 text-primary" />
-        <Badge>Beta</Badge>
+        <Badge>Chat</Badge>
       </h2>
       <ChatBox query={query} />
     </section>
