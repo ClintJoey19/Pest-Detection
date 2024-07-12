@@ -1,6 +1,7 @@
 import React from "react";
 import { Message } from "ai";
 import { Bot } from "lucide-react";
+import { Remark } from "react-remark";
 
 type ChatConversationProps = {
   messages: Message[];
@@ -9,15 +10,13 @@ type ChatConversationProps = {
 
 const ChatConversation = ({ messages, isLoading }: ChatConversationProps) => {
   return (
-    <div className="flex flex-col gap-4 pb-24">
+    <div className="flex flex-col gap-4">
       {messages.map((message, i) => {
         const { id, role, content } = message;
         return (
           <div
             key={id}
-            className={`${
-              role === "user" ? "justify-end" : ""
-            } w-full flex gap-2`}
+            className={`w-full flex gap-2 ${role === "user" && "justify-end"}`}
           >
             {role !== "user" && (
               <div
@@ -30,10 +29,12 @@ const ChatConversation = ({ messages, isLoading }: ChatConversationProps) => {
             )}
             <p
               className={`${
-                role === "user" ? "bg-primary text-white" : "bg-white"
-              } max-w-[60%] whitespace-pre-wrap rounded-xl py-2 px-3`}
+                role === "user"
+                  ? "bg-primary text-white"
+                  : "bg-white border border-slate-300"
+              } max-w-[70%] md:max-w-[60%] whitespace-pre-wrap rounded-xl py-2 px-3`}
             >
-              {content}
+              <Remark>{content}</Remark>
             </p>
           </div>
         );

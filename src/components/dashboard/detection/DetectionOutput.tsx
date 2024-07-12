@@ -47,7 +47,9 @@ const DetectionOutput = ({
   }, [outputData]);
 
   const onAskAi = () => {
-    router.push(`/dashboard/ask-ai`);
+    const pests = Object.keys(detections).toString();
+
+    router.push(`/dashboard/ask-ai?pests=${pests}`);
   };
 
   const onDownloadOutput = () => {

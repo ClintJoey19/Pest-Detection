@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { deleteOutput } from "@/lib/actions/output.action";
 import { formatInference } from "@/lib/utils";
-import { Trash2 } from "lucide-react";
+import { Sparkles, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -42,6 +42,12 @@ const OutputDetails = ({ id, time, predictions }: OutputDetailsProps) => {
 
     setDetections(pestCount);
   }, [predictions]);
+
+  const onAskAi = () => {
+    const pests = Object.keys(detections).toString();
+
+    router.push(`/dashboard/ask-ai?pests=${pests}`);
+  };
 
   const handleDelete = async () => {
     try {
@@ -85,15 +91,25 @@ const OutputDetails = ({ id, time, predictions }: OutputDetailsProps) => {
             ))}
         </div>
       </div>
-      <Button
-        variant="outline"
-        className="mt-4"
-        disabled={isSubmitting}
-        onClick={handleDelete}
-      >
-        <Trash2 className="h-4 w-4 text-destructive mr-2" />
-        Delete
-      </Button>
+      <div className="flex flex-col gap-4 mt-4">
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={!detections}
+          onClick={onAskAi}
+        >
+          <Sparkles className="w-4 h-4 mr-2" />
+          Ask AI
+        </Button>
+        <Button
+          variant="outline"
+          disabled={isSubmitting}
+          onClick={handleDelete}
+        >
+          <Trash2 className="h-4 w-4 text-destructive mr-2" />
+          Delete
+        </Button>
+      </div>
     </div>
   );
 };

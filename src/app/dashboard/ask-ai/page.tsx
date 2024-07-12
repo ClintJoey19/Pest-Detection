@@ -3,14 +3,24 @@ import { Badge } from "@/components/ui/badge";
 import { Sparkles } from "lucide-react";
 import React from "react";
 
-const page = () => {
+type searchParams = {
+  searchParams: {
+    pests?: string;
+  };
+};
+
+const page = ({ searchParams }: searchParams) => {
+  const { pests } = searchParams;
+  const query = pests
+    ? `Give me information about ${pests} and tell me how to prevent them`
+    : "";
   return (
     <section className="h-[87vh] flex flex-col gap-4">
       <h2 className="header flex items-center gap-2">
         Ask AI <Sparkles className="w-6 h-6 text-primary" />
         <Badge>Beta</Badge>
       </h2>
-      <ChatBox />
+      <ChatBox query={query} />
     </section>
   );
 };

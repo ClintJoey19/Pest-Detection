@@ -1,5 +1,4 @@
 import { samplePrompts } from "@/constants";
-import React from "react";
 import SamplePrompt from "./SamplePrompt";
 import { useUser } from "@clerk/nextjs";
 
