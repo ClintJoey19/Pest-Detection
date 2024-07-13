@@ -3,11 +3,15 @@ import { revalidatePath } from "next/cache";
 import prisma from "../prisma";
 import { auth } from "@clerk/nextjs/server";
 
-export const getOutputs = async (limit?: number) => {
+export const getOutputs = async (page: number, limit: number) => {
   try {
     const { userId } = auth();
 
     if (!userId) throw new Error("User unauthorized");
+
+    const outputs = (await getOutputsCount()) || 1;
+
+    const skip = (page - 1) * limit;
 
     const res = await prisma.output.findMany({
       where: {
@@ -20,9 +24,12 @@ export const getOutputs = async (limit?: number) => {
         createdAt: "desc",
       },
       take: limit,
+      skip,
     });
 
-    return res;
+    const hasNextPage = skip + limit < outputs;
+
+    return { data: res, hasNextPage };
   } catch (error: any) {
     console.error(error.message);
   }
@@ -30,6 +37,10 @@ export const getOutputs = async (limit?: number) => {
 
 export const getOutput = async (id: string) => {
   try {
+    const { userId } = auth();
+
+    if (!userId) throw new Error("User unauthorized");
+
     const output = await prisma.output.findUnique({
       where: {
         id,
@@ -81,6 +92,10 @@ export const createOutput = async (
 
 export const deleteOutput = async (id: string) => {
   try {
+    const { userId } = auth();
+
+    if (!userId) throw new Error("User unauthorized");
+
     await prisma.output.delete({
       where: {
         id,

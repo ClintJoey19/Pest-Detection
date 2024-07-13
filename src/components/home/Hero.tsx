@@ -5,8 +5,8 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="container flex flex-col gap-4">
-      <div className="flex items-center justify-center mt-4">
+    <section className="container flex flex-col gap-4 mb-4">
+      <div className="flex items-center justify-center my-4">
         <div className="max-w-[600px] max-md:w-full flex flex-col gap-2">
           <h1 className="text-4xl md:text-6xl text-center font-bold">
             Identify <span className="text-primary">Plant Pests</span> Quickly &
@@ -29,13 +29,20 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="w-full aspect-video relative">
-        <Image
-          src="/hero-demo.jpeg"
-          alt="hero-img"
-          fill
-          className="border-[8px] md:border-[12px] border-primary rounded-xl object-scale-down"
-        />
+      <div className="w-[95%] md:w-[80%] border border-slate-300 rounded-xl mx-auto aspect-video flex flex-col">
+        <div className="flex items-center gap-2 p-2 md:p-3 border-b border-slate-300">
+          <div className="h-2 w-2 rounded-full bg-red-500"></div>
+          <div className="h-2 w-2 rounded-full bg-orange-500"></div>
+          <div className="h-2 w-2 rounded-full bg-green-400"></div>
+        </div>
+        <div className="w-full h-full relative">
+          <Image
+            src="/hero.png"
+            alt="hero-img"
+            fill
+            className="rounded-xl object-fill"
+          />
+        </div>
       </div>
     </section>
   );

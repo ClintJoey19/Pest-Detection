@@ -1,15 +1,43 @@
 import { getOutputs } from "@/lib/actions/output.action";
-import React from "react";
 import ImageLayout from "./ImageLayout";
+import ImagesInfiniteScroll from "./ImagesInfiniteScroll";
+
+export type Prediction = {
+  id: string;
+  userId: string;
+  confidence: number;
+  class: string;
+  classId: number;
+  outputId: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Output = {
+  id: string;
+  userId: string;
+  image: string;
+  time: number;
+  createdAt: Date;
+  updatedAt: Date;
+  predictions: Prediction[];
+};
+
+export interface Outputs {
+  data: Output[];
+  hasNextPage: boolean;
+}
 
 const Images = async () => {
-  const outputs = await getOutputs();
+  const outputs: Outputs | undefined = await getOutputs(1, 12);
+
+  if (!outputs) return <div>No Images Found</div>;
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {outputs?.map((output) => (
-        <ImageLayout key={output.id} id={output.id} image={output.image} />
-      ))}
-    </div>
+    <ImagesInfiniteScroll
+      data={outputs.data}
+      hasNextPage={outputs.hasNextPage}
+    />
   );
 };
 

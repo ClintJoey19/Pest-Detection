@@ -3,13 +3,14 @@ import React from "react";
 import ImageLayout from "../images/ImageLayout";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Outputs } from "../images/Images";
 
 const RecentImages = async () => {
-  const outputs = await getOutputs(4);
+  const outputs: Outputs | undefined = await getOutputs(1, 4);
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-      {outputs?.map((output) => (
+      {outputs?.data?.map((output) => (
         <ImageLayout key={output.id} id={output.id} image={output.image} />
       ))}
       <div className="max-md:hidden h-[250px] bg-white flex justify-center items-center border border-slate-300 rounded-xl hover:shadow-lg">

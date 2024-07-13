@@ -2,7 +2,11 @@ import { samplePrompts } from "@/constants";
 import SamplePrompt from "./SamplePrompt";
 import { useUser } from "@clerk/nextjs";
 
-const NoChats = () => {
+const NoChats = ({
+  handleAppend,
+}: {
+  handleAppend: (value: string) => void;
+}) => {
   const { user } = useUser();
 
   return (
@@ -17,7 +21,12 @@ const NoChats = () => {
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         {samplePrompts.map((sample, i) => (
-          <SamplePrompt key={i} Icon={sample.Icon} prompt={sample.prompt} />
+          <SamplePrompt
+            key={i}
+            Icon={sample.Icon}
+            prompt={sample.prompt}
+            handleAppend={handleAppend}
+          />
         ))}
       </div>
     </div>

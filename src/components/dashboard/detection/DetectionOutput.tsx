@@ -146,7 +146,7 @@ const DetectionOutput = ({
           )}
         </div>
         <div
-          className={`grid grid-cols-1 md:grid-cols-2 gap-4 ${
+          className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ${
             !outputImage && !isDetecting && "hidden"
           }`}
         >
@@ -176,7 +176,7 @@ const DetectionOutput = ({
             size="sm"
             disabled={isDetecting}
             onClick={onDownloadOutput}
-            className="md:col-span-2"
+            className="max-xl:col-span-2"
           >
             <ArrowDownToLine className="w-4 h-4 mr-2" />
             Download

@@ -1,6 +1,8 @@
 "use server";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "../prisma";
+import { PestData } from "@/components/charts/VerticalBarChart";
+import { PestClassCount } from "@/components/charts/DonutChart";
 
 export const getPredictions = async () => {
   try {
@@ -53,23 +55,35 @@ export const getPredictionsCount = async (classId?: number) => {
   }
 };
 
-// export const getPredictionsCombinedCount = async (date: Date) => {
-//   try {
-//     const pestCounts = await prisma.prediction.groupBy({
-//       by: ["classId"],
-//       where: {
-//         createdAt: {
-//           month: date.getMonth(),
-//           year: date.getFullYear(),
-//         },
-//       },
-//       aggregate: {
-//         field: "id", // You can count any field here
-//         function: "count",
-//       },
-//     });
-//     return pestCounts;
-//   } catch (error: any) {
-//     console.error(error.message);
-//   }
-// };
+export const getTotalPredictionClassCount = async () => {
+  try {
+    const data: PestClassCount[] = await prisma.$queryRaw`
+      SELECT class as pest, CAST(COUNT(*) AS INT) as count
+      FROM "Prediction"
+      GROUP BY class
+      ORDER BY class ASC
+    `;
+
+    return data;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const getPredictionsCombinedCount = async (
+  month: number,
+  year: number
+): Promise<PestData[] | undefined> => {
+  try {
+    const predictionsData: PestData[] = await prisma.$queryRaw`
+    SELECT class as pest, CAST(COUNT(*) AS INT) as detections FROM "Prediction" 
+    WHERE EXTRACT(MONTH FROM created_at) = ${month} AND 
+    EXTRACT(YEAR FROM created_at) = ${year} 
+    GROUP BY class ORDER BY class ASC
+  `;
+
+    return predictionsData;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};

@@ -1,12 +1,11 @@
+import DonutChart from "@/components/charts/DonutChart";
 import CardsAnalytics from "@/components/dashboard/(dashboard)/CardsAnalytics";
 import PestAnalytics from "@/components/dashboard/(dashboard)/PestAnalytics";
+import PestDistribution from "@/components/dashboard/(dashboard)/PestDistribution";
 import RecentImages from "@/components/dashboard/(dashboard)/RecentImages";
-import ImageLayout from "@/components/dashboard/images/ImageLayout";
 import CardAnalyticsSkeleton from "@/components/skeletons/CardAnalyticsSkeleton";
-import ImagesSkeleton from "@/components/skeletons/ImagesSkeleton";
 import RecentImagesSkeleton from "@/components/skeletons/RecentImagesSkeleton";
-import { Button } from "@/components/ui/button";
-import { getOutputs, getOutputsCount } from "@/lib/actions/output.action";
+import { getOutputsCount } from "@/lib/actions/output.action";
 import { getPredictionsCount } from "@/lib/actions/prediction.action";
 import { Bug, Image } from "lucide-react";
 import Link from "next/link";
@@ -49,7 +48,14 @@ const page = () => {
             </Suspense>
           </div>
         </div>
-        <PestAnalytics />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="md:col-span-2">
+            <PestAnalytics />
+          </div>
+          <div className="">
+            <PestDistribution />
+          </div>
+        </div>
       </div>
     </section>
   );

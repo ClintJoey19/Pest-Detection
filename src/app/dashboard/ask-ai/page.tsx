@@ -11,7 +11,7 @@ type searchParams = {
 
 const page = ({ searchParams }: searchParams) => {
   const { pests } = searchParams;
-  const query = pests
+  const prompt = pests
     ? `Give me information about ${pests} and tell me how to prevent them`
     : "";
   return (
@@ -20,7 +20,7 @@ const page = ({ searchParams }: searchParams) => {
         Ask AI <Sparkles className="w-6 h-6 text-primary" />
         <Badge>Chat</Badge>
       </h2>
-      <ChatBox query={query} />
+      <ChatBox prompt={prompt} />
     </section>
   );
 };

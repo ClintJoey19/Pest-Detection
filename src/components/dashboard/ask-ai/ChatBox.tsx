@@ -5,17 +5,35 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import ChatConversation from "./ChatConversation";
+import { useEffect } from "react";
 
-const ChatBox = ({ query }: { query: string }) => {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({ initialInput: query });
+const ChatBox = ({ prompt }: { prompt: string }) => {
+  const {
+    messages,
+    input,
+    append,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+  } = useChat();
+
+  const handleAppend = (value: string) => {
+    append({
+      content: value,
+      role: "user",
+    });
+  };
+
+  useEffect(() => {
+    if (prompt) handleAppend(prompt);
+  }, []);
 
   return (
     <div className="h-full w-full flex flex-col items-center">
-      <div className="h-[84%] max-w-[900px] min-w-[350px] flex flex-col gap-4 overflow-y-auto">
+      <div className="h-[84%] max-w-[900px] w-full min-w-[350px] flex flex-col gap-4 overflow-y-auto">
         <div className="h-full w-full">
           {messages.length === 0 ? (
-            <NoChats />
+            <NoChats handleAppend={handleAppend} />
           ) : (
             <ChatConversation messages={messages} isLoading={isLoading} />
           )}

@@ -13,6 +13,7 @@ const CardsAnalytics = async ({
   getValue,
 }: CardsAnalyticsProps) => {
   const value = (await getValue()) || 0;
+
   return (
     <div className="bg-white flex justify-between gap-4 border border-slate-300 p-4 rounded-xl">
       <div className="w-14 h-14 bg-purple-200 flex justify-center items-center rounded-full">

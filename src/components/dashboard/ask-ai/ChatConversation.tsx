@@ -27,7 +27,7 @@ const ChatConversation = ({ messages, isLoading }: ChatConversationProps) => {
                 <Bot className={`text-primary h-5 w-5 mx-auto`} />
               </div>
             )}
-            <p
+            <div
               className={`${
                 role === "user"
                   ? "bg-primary text-white"
@@ -35,7 +35,7 @@ const ChatConversation = ({ messages, isLoading }: ChatConversationProps) => {
               } max-w-[70%] md:max-w-[60%] whitespace-pre-wrap rounded-xl py-2 px-3`}
             >
               <Remark>{content}</Remark>
-            </p>
+            </div>
           </div>
         );
       })}

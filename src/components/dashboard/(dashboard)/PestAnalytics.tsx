@@ -1,22 +1,15 @@
-import LineChart from "@/components/charts/LineChart";
-import MonthFilter from "@/components/global/MonthFilter";
-import { formatDate } from "@/lib/utils";
+import { VerticalBarChart } from "@/components/charts/VerticalBarChart";
+import { getPredictionsCombinedCount } from "@/lib/actions/prediction.action";
 
 const PestAnalytics = async () => {
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold">Pest Analytics</h3>
-        <MonthFilter />
-      </div>
-      <div className="w-full flex max-md:flex-col gap-4">
-        <div className="w-full flex flex-col gap-4 items-center bg-white border border-slate-300 p-4 rounded-xl">
-          <h3 className="font-semibold">{formatDate(new Date())}</h3>
-          <LineChart />
-        </div>
-      </div>
-    </div>
-  );
+  const date = new Date();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const data = await getPredictionsCombinedCount(month + 1, year);
+
+  if (!data) return null;
+
+  return <VerticalBarChart date={date} data={data} />;
 };
 
 export default PestAnalytics;
