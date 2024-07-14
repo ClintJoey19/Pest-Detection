@@ -29,7 +29,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="w-[95%] md:w-[80%] border border-slate-300 rounded-xl mx-auto aspect-video flex flex-col">
+      <div className="w-[95%] md:w-[80%] border border-slate-300 rounded-xl mx-auto aspect-video flex flex-col shadow-xl">
         <div className="flex items-center gap-2 p-2 md:p-3 border-b border-slate-300">
           <div className="h-2 w-2 rounded-full bg-red-500"></div>
           <div className="h-2 w-2 rounded-full bg-orange-500"></div>

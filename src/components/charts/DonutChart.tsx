@@ -58,7 +58,7 @@ export default function DonutChart({
 }) {
   const totalVisitors = useMemo(() => {
     return chartData?.reduce((acc, curr) => acc + curr.count, 0);
-  }, []);
+  }, [chartData]);
 
   return (
     <Card className="h-full flex justify-between flex-col">

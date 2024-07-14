@@ -1,7 +1,18 @@
 import React from "react";
+import Features from "./Features";
 
 const About = () => {
-  return <section className="container">About</section>;
+  return (
+    <section className="bg-primary w-full px-2 py-4">
+      <div className="container text-white">
+        <h2 className="text-xl sm:text-2xl md:text-4xl font-bold">
+          Discover the Advantage. <br />
+          Experience the Difference.{" "}
+        </h2>
+      </div>
+      <Features />
+    </section>
+  );
 };
 
 export default About;

@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import MobileNavbar from "./MobileNavbar";
+import Logo from "../global/Logo";
 
 const Navbar = () => {
   return (
@@ -9,10 +9,7 @@ const Navbar = () => {
         <div className="md:hidden flex items-center">
           <MobileNavbar />
         </div>
-        <Image src={"/logo.svg"} alt="logo" height={35} width={35} />
-        <p className="text-lg font-bold">
-          PestScope <span className="text-primary">AI</span>
-        </p>
+        <Logo />
       </div>
       <div className="h-full flex items-center gap-4">
         <SignedOut>
