@@ -5,7 +5,7 @@ import Socials from "./Socials";
 
 const Footer = () => {
   return (
-    <section className="w-full">
+    <section className="w-full border-t border-slate-300">
       <footer className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         <div className="flex flex-col gap-2">
           <Logo />

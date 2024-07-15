@@ -3,9 +3,9 @@ import Features from "./Features";
 
 const About = () => {
   return (
-    <section className="bg-primary w-full px-2 py-4">
+    <section className="bg-primary w-full px-2 py-16">
       <div className="container text-white">
-        <h2 className="text-xl sm:text-2xl md:text-4xl font-bold">
+        <h2 className="text-4xl md:text-6xl font-bold">
           Discover the Advantage. <br />
           Experience the Difference.{" "}
         </h2>
