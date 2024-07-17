@@ -3,9 +3,12 @@ import { getOutput } from "@/lib/actions/output.action";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const output = await getOutput(params.id);
+
+  if (!output) redirect("/dashboard/images");
 
   return (
     <section className="flex flex-col gap-4">

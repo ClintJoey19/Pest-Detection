@@ -57,9 +57,14 @@ export const getPredictionsCount = async (classId?: number) => {
 
 export const getTotalPredictionClassCount = async () => {
   try {
+    const { userId } = auth();
+
+    if (!userId) throw new Error("User unauthorized");
+
     const data: PestClassCount[] = await prisma.$queryRaw`
       SELECT class as pest, CAST(COUNT(*) AS INT) as count
       FROM "Prediction"
+      WHERE user_id = ${userId}
       GROUP BY class
       ORDER BY class ASC
     `;
@@ -75,9 +80,14 @@ export const getPredictionsCombinedCount = async (
   year: number
 ): Promise<PestData[] | undefined> => {
   try {
+    const { userId } = auth();
+
+    if (!userId) throw new Error("User unauthorized");
+
     const predictionsData: PestData[] = await prisma.$queryRaw`
     SELECT class as pest, CAST(COUNT(*) AS INT) as detections FROM "Prediction" 
-    WHERE EXTRACT(MONTH FROM created_at) = ${month} AND 
+    WHERE user_id = ${userId} AND 
+    EXTRACT(MONTH FROM created_at) = ${month} AND 
     EXTRACT(YEAR FROM created_at) = ${year} 
     GROUP BY class ORDER BY class ASC
   `;

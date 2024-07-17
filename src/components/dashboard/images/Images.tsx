@@ -31,7 +31,8 @@ export interface Outputs {
 const Images = async () => {
   const outputs: Outputs | undefined = await getOutputs(1, 12);
 
-  if (!outputs) return <div>No Images Found</div>;
+  if (!outputs?.data || outputs.data.length === 0)
+    return <div>No saved image yet.</div>;
 
   return (
     <ImagesInfiniteScroll

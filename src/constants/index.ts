@@ -25,10 +25,6 @@ export const navLinks = [
     href: "/",
   },
   {
-    label: "Documentation",
-    href: "/docs",
-  },
-  {
     label: "About",
     href: "/about",
   },
@@ -133,10 +129,6 @@ export const footerLinks = [
       {
         label: "Home",
         href: "/",
-      },
-      {
-        label: "Documentation",
-        href: "/docs",
       },
       {
         label: "About",

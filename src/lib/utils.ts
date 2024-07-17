@@ -70,5 +70,3 @@ export const formatDate = (date: Date, hasDay?: boolean) => {
 
   return !hasDay ? `${month} ${year}` : `${month} ${day}, ${year}`;
 };
-
-export const getDaysOfMonth = () => {};

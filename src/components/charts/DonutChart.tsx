@@ -56,7 +56,9 @@ export default function DonutChart({
 }: {
   chartData: PestClassCount[] | undefined;
 }) {
-  const totalVisitors = useMemo(() => {
+  if (!chartData || chartData.length === 0) return null;
+
+  const totalPests = useMemo(() => {
     return chartData?.reduce((acc, curr) => acc + curr.count, 0);
   }, [chartData]);
 
@@ -97,7 +99,7 @@ export default function DonutChart({
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors?.toLocaleString()}
+                          {totalPests?.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

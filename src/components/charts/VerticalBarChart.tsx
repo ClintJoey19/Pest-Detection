@@ -44,6 +44,7 @@ interface VerticalBarChartProps {
 }
 
 export function VerticalBarChart({ date, data }: VerticalBarChartProps) {
+  if (!data || data.length === 0) return null;
   return (
     <Card>
       <CardHeader>

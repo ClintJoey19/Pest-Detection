@@ -8,6 +8,9 @@ import { Outputs } from "../images/Images";
 const RecentImages = async () => {
   const outputs: Outputs | undefined = await getOutputs(1, 4);
 
+  if (!outputs?.data || outputs.data.length === 0)
+    return <div className="">No recent image saved.</div>;
+
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
       {outputs?.data?.map((output) => (
