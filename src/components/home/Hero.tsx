@@ -18,7 +18,7 @@ const Hero = () => {
           </p>
           <div className="w-full flex justify-center items-center gap-4 mt-4">
             <Button variant="outline" asChild>
-              <Link href={"/documentation"}>Learn more</Link>
+              <Link href={"#about"}>Learn more</Link>
             </Button>
             <Button asChild>
               <Link href={"/dashboard"} className="flex items-center gap-2">

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const CallToAction = () => {
   return (
-    <section className="container p-4">
+    <section id="contact" className="container p-4">
       <div className="bg-primary rounded-xl h-[250px] sm:h-[300px] w-full p-4 overflow-hidden relative">
         <h2 className="text-4xl sm:text-6xl lg:text-8xl text-white font-bold mb-2">
           Get Started Now

@@ -26,11 +26,15 @@ export const navLinks = [
   },
   {
     label: "About",
-    href: "/about",
+    href: "#about",
+  },
+  {
+    label: "FAQs",
+    href: "#faqs",
   },
   {
     label: "Contact",
-    href: "/contact",
+    href: "#contact",
   },
 ];
 
@@ -132,11 +136,15 @@ export const footerLinks = [
       },
       {
         label: "About",
-        href: "/about",
+        href: "#about",
+      },
+      {
+        label: "FAQs",
+        href: "#faqs",
       },
       {
         label: "Contact",
-        href: "/contact",
+        href: "#contact",
       },
     ],
   },
@@ -145,11 +153,11 @@ export const footerLinks = [
     links: [
       {
         label: "Privacy Policy",
-        href: "/policy",
+        href: "#",
       },
       {
         label: "Terms of Service",
-        href: "/terms",
+        href: "#",
       },
     ],
   },

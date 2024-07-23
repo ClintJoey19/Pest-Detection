@@ -58,9 +58,7 @@ export default function DonutChart({
 }) {
   if (!chartData || chartData.length === 0) return null;
 
-  const totalPests = useMemo(() => {
-    return chartData?.reduce((acc, curr) => acc + curr.count, 0);
-  }, [chartData]);
+  const totalPests = chartData?.reduce((acc, curr) => acc + curr.count, 0);
 
   return (
     <Card className="h-full flex justify-between flex-col">
